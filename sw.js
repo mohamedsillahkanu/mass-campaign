@@ -1,10 +1,11 @@
-const CACHE_NAME = 'itn-campaign-v4';
+const CACHE_NAME = 'itn-campaign-v7';
 const ASSETS = [
     './',
     'index.html',
     'styles.css',
     'script.js',
     'cascading_data.csv',
+    'users.csv',
     'manifest.json',
     'https://github.com/mohamedsillahkanu/gdp-dashboard-2/raw/6c7463b0d5c3be150aafae695a4bcbbd8aeb1499/ICF-SL.jpg',
     'https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap',
