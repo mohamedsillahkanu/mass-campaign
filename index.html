@@ -182,7 +182,10 @@
                                 <div class="form-group"><label class="form-label">UNDER 5 <span class="required">*</span></label><input type="number" class="form-input" id="reg_under5" min="0" placeholder="0" required oninput="onVulnerableChange()"><div class="field-error" id="error_reg_under5"></div></div>
                                 <div class="form-group"><label class="form-label">PREGNANT <span class="required">*</span></label><input type="number" class="form-input" id="reg_pregnant" min="0" placeholder="0" required oninput="onVulnerableChange()"><div class="field-error" id="error_reg_pregnant"></div></div>
                         </div></div>
-                        <div class="dashboard-block" id="voucherPreview" style="display:none;"><div class="dashboard-header" style="background:#28a745;">VOUCHER ALLOCATION</div><div class="voucher-preview-content" id="voucherPreviewContent"></div></div>
+                        <div class="dashboard-block" id="voucherInputBlock" style="display:none;"><div class="dashboard-header" style="background:#28a745;">SCAN / TYPE VOUCHER CODE(S)</div>
+                            <div class="voucher-input-info" id="voucherInputInfo"></div>
+                            <div class="voucher-input-fields" id="voucherInputFields"></div>
+                        </div>
                         <div class="class-block"><div class="class-header">GPS LOCATION</div>
                             <div style="padding:12px;"><div class="gps-container"><div class="gps-status"><div class="gps-icon" id="regGpsDot"></div><div><div class="gps-info" id="regGpsText">Capturing...</div><div class="gps-coords" id="regGpsCoords"></div></div></div><button type="button" class="gps-btn" onclick="captureRegGPS()"><svg class="retry-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>RETRY</button></div><input type="hidden" id="reg_gps_lat"><input type="hidden" id="reg_gps_lng"><input type="hidden" id="reg_gps_acc"></div>
                         </div>
