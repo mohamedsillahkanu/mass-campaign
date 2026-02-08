@@ -15,9 +15,6 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 </head>
 <body>
     <!-- ==================== LOGIN SCREEN ==================== -->
@@ -192,12 +189,6 @@
                         <div class="navigation-buttons"><button type="button" class="btn-nav btn-submit full-width" onclick="submitRegistration()"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>REGISTER HOUSEHOLD</button></div>
                     </form>
                 </div></div>
-                <div id="receiptSection" style="display:none;"><div class="form-card"><div class="form-content">
-                    <div class="section-header"><div class="section-icon" style="background:#28a745;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg></div><div><h2 class="section-title" style="color:#28a745;">VOUCHER RECEIPT</h2><p class="section-description">Download and give to household</p></div></div>
-                    <div id="voucherReceipt" class="voucher-receipt"></div>
-                    <div class="navigation-buttons"><button type="button" class="btn-nav btn-submit" onclick="downloadReceiptImage()">📷 IMAGE</button><button type="button" class="btn-nav btn-next" onclick="downloadReceiptPDF()">📄 PDF</button></div>
-                    <div class="navigation-buttons" style="margin-top:8px;"><button type="button" class="btn-nav btn-draft full-width" onclick="closeReceipt()">➕ REGISTER NEXT</button></div>
-                </div></div></div>
             </div>
 
             <!-- ITN STOCK TAB -->
