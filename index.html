@@ -83,8 +83,14 @@
                         <div class="class-grid">
                             <div class="form-group"><label class="form-label">DATE <span class="required">*</span></label><input type="date" class="form-input" id="dhmt_date" required></div>
                             <div class="form-group"><label class="form-label">BATCH NUMBER</label><input type="text" class="form-input" id="dhmt_batch" placeholder="BATCH-2025-001"></div>
-                            <div class="form-group"><label class="form-label">ITN TYPE <span class="required">*</span></label><select class="form-select" id="dhmt_type" required><option value="">Select...</option><option value="PBO">PBO</option><option value="IG2">IG2</option><option value="Mixed">Mixed</option></select></div>
-                            <div class="form-group"><label class="form-label">QUANTITY <span class="required">*</span></label><input type="number" class="form-input" id="dhmt_qty" min="1" placeholder="0" required></div>
+                            <div class="form-group" style="grid-column:span 2;"><label class="form-label">ITN TYPE(S) <span class="required">*</span></label>
+                                <div class="itn-type-checks">
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="PBO" onchange="toggleTypeQty('dhmt','PBO',this.checked)"><span class="itn-check-badge pbo">PBO</span></label>
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="IG2" onchange="toggleTypeQty('dhmt','IG2',this.checked)"><span class="itn-check-badge ig2">IG2</span></label>
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="Mixed" onchange="toggleTypeQty('dhmt','Mixed',this.checked)"><span class="itn-check-badge mixed">Mixed</span></label>
+                                </div>
+                                <div class="itn-qty-fields" id="dhmt_type_qtys"></div>
+                            </div>
                             <div class="form-group"><label class="form-label">DISTRIBUTED TO (PHU) <span class="required">*</span></label><select class="form-select" id="dhmt_to_phu" required><option value="">Select PHU...</option></select></div>
                             <div class="form-group" style="grid-column:span 2;"><label class="form-label">NOTES</label><input type="text" class="form-input" id="dhmt_notes" placeholder="Remarks..."></div>
                         </div>
@@ -109,8 +115,14 @@
                         <div class="class-grid">
                             <div class="form-group"><label class="form-label">DATE <span class="required">*</span></label><input type="date" class="form-input" id="phu_date" required></div>
                             <div class="form-group"><label class="form-label">BATCH NUMBER</label><input type="text" class="form-input" id="phu_batch" placeholder="BATCH-2025-001"></div>
-                            <div class="form-group"><label class="form-label">ITN TYPE <span class="required">*</span></label><select class="form-select" id="phu_type" required><option value="">Select...</option><option value="PBO">PBO</option><option value="IG2">IG2</option><option value="Mixed">Mixed</option></select></div>
-                            <div class="form-group"><label class="form-label">QUANTITY <span class="required">*</span></label><input type="number" class="form-input" id="phu_qty" min="1" placeholder="0" required></div>
+                            <div class="form-group" style="grid-column:span 2;"><label class="form-label">ITN TYPE(S) <span class="required">*</span></label>
+                                <div class="itn-type-checks">
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="PBO" onchange="toggleTypeQty('phu','PBO',this.checked)"><span class="itn-check-badge pbo">PBO</span></label>
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="IG2" onchange="toggleTypeQty('phu','IG2',this.checked)"><span class="itn-check-badge ig2">IG2</span></label>
+                                    <label class="itn-check-label"><input type="checkbox" class="itn-check" value="Mixed" onchange="toggleTypeQty('phu','Mixed',this.checked)"><span class="itn-check-badge mixed">Mixed</span></label>
+                                </div>
+                                <div class="itn-qty-fields" id="phu_type_qtys"></div>
+                            </div>
                             <div class="form-group"><label class="form-label">DISTRIBUTED TO (DP) <span class="required">*</span></label><select class="form-select" id="phu_to_dp" required><option value="">Select Distribution Point...</option></select></div>
                             <div class="form-group"><label class="form-label">RECEIVED FROM</label><input type="text" class="form-input readonly-blue" id="phu_from" readonly></div>
                             <div class="form-group" style="grid-column:span 2;"><label class="form-label">NOTES</label><input type="text" class="form-input" id="phu_notes" placeholder="Remarks..."></div>
@@ -194,8 +206,14 @@
                             <div class="class-grid">
                                 <div class="form-group"><label class="form-label">DATE <span class="required">*</span></label><input type="date" class="form-input" id="itn_recv_date" required></div>
                                 <div class="form-group"><label class="form-label">BATCH NUMBER</label><input type="text" class="form-input" id="itn_batch" placeholder="BATCH-2025-001"></div>
-                                <div class="form-group"><label class="form-label">ITN TYPE <span class="required">*</span></label><select class="form-select" id="itn_recv_type" required><option value="">Select...</option><option value="PBO">PBO</option><option value="IG2">IG2</option><option value="Mixed">Mixed</option></select></div>
-                                <div class="form-group"><label class="form-label">QUANTITY <span class="required">*</span></label><input type="number" class="form-input" id="itn_recv_qty" min="1" placeholder="0" required></div>
+                                <div class="form-group" style="grid-column:span 2;"><label class="form-label">ITN TYPE(S) <span class="required">*</span></label>
+                                    <div class="itn-type-checks">
+                                        <label class="itn-check-label"><input type="checkbox" class="itn-check" value="PBO" onchange="toggleTypeQty('stock','PBO',this.checked)"><span class="itn-check-badge pbo">PBO</span></label>
+                                        <label class="itn-check-label"><input type="checkbox" class="itn-check" value="IG2" onchange="toggleTypeQty('stock','IG2',this.checked)"><span class="itn-check-badge ig2">IG2</span></label>
+                                        <label class="itn-check-label"><input type="checkbox" class="itn-check" value="Mixed" onchange="toggleTypeQty('stock','Mixed',this.checked)"><span class="itn-check-badge mixed">Mixed</span></label>
+                                    </div>
+                                    <div class="itn-qty-fields" id="stock_type_qtys"></div>
+                                </div>
                                 <div class="form-group"><label class="form-label">RECEIVED FROM</label><input type="text" class="form-input readonly-blue" id="itn_recv_from" readonly></div>
                                 <div class="form-group"><label class="form-label">NOTES</label><input type="text" class="form-input" id="itn_recv_notes" placeholder="Remarks..."></div>
                             </div>
