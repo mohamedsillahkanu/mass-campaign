@@ -176,7 +176,7 @@ function formatTypeQtySummary(items){return items.map(function(i){return i.quant
 function showDHMTScreen(){
     document.getElementById('dhmtScreen').style.display='block';
     var ut=document.getElementById('dhmtUserTag');if(ut)ut.textContent=state.currentUser.name.split(' ')[0].toUpperCase();
-    document.getElementById('dhmtDistrict').textContent=state.geoInfo.district||'—';
+    var on=document.getElementById('dhmtOfficerName');if(on)on.textContent=state.currentUser.name||'—';
     var df=document.getElementById('dhmt_date');if(df&&!df.value)df.value=new Date().toISOString().split('T')[0];
     populateDhmtPhuDropdown();
     renderDHMTHistory();
@@ -184,15 +184,10 @@ function showDHMTScreen(){
 function populateDhmtPhuDropdown(){
     var sel=document.getElementById('dhmt_to_phu');if(!sel||!cascadingData.length)return;
     sel.innerHTML='<option value="">Select PHU...</option>';
-    var district=(state.geoInfo.district||'').trim();if(!district)return;
     var phus=[];cascadingData.forEach(function(r){
-        if((r.district||'').trim()===district&&r.phu&&phus.indexOf(r.phu)===-1)phus.push(r.phu);
+        if(r.phu&&phus.indexOf(r.phu)===-1)phus.push(r.phu);
     });
     phus.sort();phus.forEach(function(p){var o=document.createElement('option');o.value=p;o.textContent=p;sel.appendChild(o);});
-    if(phus.length===0){
-        // Fallback: show ALL PHUs across all districts
-        cascadingData.forEach(function(r){if(r.phu&&phus.indexOf(r.phu)===-1){phus.push(r.phu);var o=document.createElement('option');o.value=r.phu;o.textContent=r.phu;sel.appendChild(o);}});
-    }
 }
 function populatePhuDpDropdown(){
     var sel=document.getElementById('phu_to_dp');if(!sel||!cascadingData.length)return;
@@ -209,9 +204,11 @@ function submitDHMT(){
     var notes=document.getElementById('dhmt_notes').value.trim();
     if(!date||typeQtys.length===0||!to){showNotification('Fill date, select type(s) with qty, and PHU','error');return;}
     var totalQty=0;typeQtys.forEach(function(tq){totalQty+=tq.quantity;});
+    var phuRow=cascadingData.find(function(r){return r.phu===to;});
+    var district=phuRow?phuRow.district:'';
     var rec={id:'DHMT-'+Date.now().toString(36).toUpperCase(),timestamp:new Date().toISOString(),date:date,batch:batch,
         types:typeQtys,totalQuantity:totalQty,typeSummary:formatTypeQtySummary(typeQtys),
-        toPhu:to,notes:notes,district:state.geoInfo.district,recordedBy:state.currentUser.name,userId:state.currentUser.id,synced:false};
+        toPhu:to,notes:notes,district:district,recordedBy:state.currentUser.name,userId:state.currentUser.id,synced:false};
     state.dhmtRecords.push(rec);saveToStorage();showNotification(totalQty+' ITNs → '+to,'success');
     sendToSheet('dhmt_distribution',rec);renderDHMTHistory();
     document.getElementById('dhmt_batch').value='';document.getElementById('dhmt_notes').value='';
@@ -300,9 +297,9 @@ function onTotalPeopleChange(){var t=parseInt(document.getElementById('reg_total
 function showVoucherInputs(tp){
     var block=document.getElementById('voucherInputBlock'),info=document.getElementById('voucherInputInfo'),fields=document.getElementById('voucherInputFields');
     if(tp<=0){block.style.display='none';return;}
-    var count;if(tp<=3)count=1;else if(tp<=5)count=2;else count=3;
+    var count;if(tp<=2)count=1;else if(tp<=4)count=2;else count=3;
     block.style.display='block';
-    info.innerHTML='<div class="voucher-formula-text">'+tp+' people → <strong>'+count+' voucher(s)</strong> = '+count+' ITN(s). Scan or type each voucher code below.</div>';
+    info.innerHTML='<div class="voucher-formula-text">'+tp+' people → <strong>'+count+' voucher(s)</strong> = '+count+' ITN(s)</div><div style="font-size:10px;color:#666;text-align:center;margin-top:4px;">1-2 people = 1 ITN | 3-4 = 2 ITNs | 5+ = 3 ITNs</div>';
     fields.innerHTML='';
     for(var i=0;i<count;i++){
         var row=document.createElement('div');row.className='voucher-scan-row';
@@ -343,7 +340,7 @@ function submitRegistration(){
     if(!phone||phone.length!==9)err.push('9-digit phone');if(total<1)err.push('Total ≥ 1');
     if(males+females!==total)err.push('M+F must = total');if(under5>total)err.push('U5 ≤ total');if(pregnant>females)err.push('Preg ≤ females');
     if(err.length){showNotification(err[0],'error');return;}
-    var count;if(total<=3)count=1;else if(total<=5)count=2;else count=3;
+    var count;if(total<=2)count=1;else if(total<=4)count=2;else count=3;
     var vouchers=[];var voucherErr=false;
     for(var vi=1;vi<=count;vi++){
         var inp=document.getElementById('reg_voucher_'+vi);
